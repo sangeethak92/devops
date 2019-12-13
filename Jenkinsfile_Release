@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'master' }
     parameters {
-        bstring(defaultValue: "", description: 'Which Release Tag', name: 'releasetag')
+        string(defaultValue: "", description: 'Which Release Tag', name: 'releasetag')
     }
     stages {
         
