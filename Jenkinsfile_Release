@@ -61,12 +61,23 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                // check if branch is master
+                branch 'master'
+            }
             steps {
-                sh 'curl --upload-file target/addressbook.war "http://tomcat:password@10.62.125.4:8083/manager/text/deploy?path=/addressbook_release&update=true"'
+                sh 'curl --upload-file target/addressbook.war "http://tomcat:password@10.62.125.4:8083/manager/text/deploy?path=/addressbook&update=true"'
                 //sh 'curl --upload-file target/addressbook.war "http://tomcat:password@34.93.238.186:8081/manager/text/deploy?path=/addressbook&update=true"'
                 //withCredentials([usernamePassword(credentialsId: 'nexusadmin', passwordVariable: 'pass', usernameVariable: 'user')]) {
                 //    sh 'curl --upload-file target/hello-world-war-1.0.0-SNAPSHOT.war "http://${user}:${pass}@34.93.240.217:8082/manager/text/deploy?path=/hello&update=true"'
                 //}
+            }
+            when {
+                // check if branch is master
+                branch 'Dev'
+            }
+            steps {
+                sh 'curl --upload-file target/addressbook.war "http://tomcat:password@10.62.125.4:8083/manager/text/deploy?path=/addressbook_deve&update=true"'
             }
         }
         stage('Test Script Checkout and Execution')
