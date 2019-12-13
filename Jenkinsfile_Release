@@ -1,8 +1,5 @@
 pipeline {
     agent { label 'master' }
-    parameters {
-        string(defaultValue: "", description: 'Which Release Tag', name: 'releasetag')
-    }
     stages {
         
         stage('Build') {
